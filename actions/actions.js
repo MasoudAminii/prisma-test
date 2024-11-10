@@ -11,11 +11,7 @@ export async function createData(formData) {
     data: {
       title: formData.get("title"),
       content: formData.get("content"),
-      author: {
-        connect: {
-          email: "masoudamini123@gmail.com",
-        },
-      },
+      slug: formData.get("title").replace(/\s+/g, "-").toLowerCase(),
     },
   });
   revalidatePath("/posts");
