@@ -3,7 +3,7 @@ import { createData } from "../../actions/actions";
 import prisma from "../../lib/db";
 export default async function Page() {
   const posts = await prisma.post.findMany({
-    cacheStrategy: { ttl: 60 },
+    cacheStrategy: { ttl: 600, swr: 300 },
   });
   return (
     <div>
@@ -12,7 +12,10 @@ export default async function Page() {
       </h1>
       <div className="Content flex gap-8 px-8 py-20 flex-wrap ">
         {posts.map((post) => (
-          <div key={post.id} className="w-1/5 flex-auto bg-black text-white p-4">
+          <div
+            key={post.id}
+            className="w-1/5 flex-auto bg-black text-white p-4"
+          >
             <h2>{post.id}</h2>
             <h2>{post.title}</h2>
             <h2>{post.content}</h2>
