@@ -4,6 +4,7 @@ export default async function Page({ params }) {
   const { slug } = await params;
   const post = await prisma.post.findUnique({
     where: { slug: slug },
+    cacheStrategy: { ttl: 60 * 5, swr: 30 },
   });
 
   return (

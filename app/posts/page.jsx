@@ -2,7 +2,9 @@ import Link from "next/link";
 import { createData } from "../../actions/actions";
 import prisma from "../../lib/db";
 export default async function Page() {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    cacheStrategy: { ttl: 60 * 5, swr: 30 },
+  });
   return (
     <div>
       <h1 className="text-4xl text-center uppercase p-2">
